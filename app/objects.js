@@ -1,15 +1,22 @@
-exports = (typeof window === 'undefined') ? global : window;
-
-exports.objectsAnswers =  {
-  alterContext : function(fn, obj) {
-
+exports = typeof window === 'undefined' ? global : window;
+exports.objectsAnswers = {
+  alterContext: function (fn, obj) {
+    return fn.call(obj);
   },
 
-  alterObjects : function(constructor, greeting) {
-
+  alterObjects: function (constructor, greeting) {
+    constructor.prototype.greeting = greeting;
   },
 
-  iterate : function(obj) {
+  iterate: function (obj) {
+    var properties = [];
+    for (var property in obj) {
+      if (obj.hasOwnProperty(property)) {
+        var string = property + ': ' + obj[property];
+        properties.push(string);
+      }
+    }
 
-  }
+    return properties;
+  },
 };
